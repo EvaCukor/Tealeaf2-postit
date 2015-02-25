@@ -18,7 +18,9 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
     
-    if @post.save
+    if params[:commit] == "Cancel"
+      redirect_to root_path
+    elsif @post.save
       flash[:notice] = "Your post was created."
       redirect_to posts_path
     else
@@ -30,7 +32,9 @@ class PostsController < ApplicationController
   end
   
   def update
-    if @post.update(post_params)
+    if params[:commit] == "Cancel"
+      redirect_to root_path
+    elsif @post.update(post_params)
       flash[:notice] = "Your post was updated."
       redirect_to posts_path(@post)
     else

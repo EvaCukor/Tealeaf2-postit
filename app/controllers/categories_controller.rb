@@ -8,7 +8,9 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
     
-    if @category.save
+    if params[:commit] == "Cancel"
+      redirect_to root_path
+    elsif @category.save
       flash[:notice] = "Category has been created."
       redirect_to root_path
     else

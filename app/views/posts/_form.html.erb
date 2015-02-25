@@ -21,5 +21,6 @@
       <% end %>
     </div>
     <%= f.submit(@post.new_record? ? "Create post" : "Update post", class: "btn btn-primary") %>
+    <%= f.submit("Cancel", class: "btn btn-warning")%>
   <% end %>
 </div>

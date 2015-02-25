@@ -12,7 +12,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     
-    if @user.save
+    if params[:commit] == "Cancel"
+      redirect_to root_path
+    elsif @user.save
       session[:user_id] = @user.id
       flash[:notice] = "You have registered successfully."
       redirect_to root_path
@@ -25,7 +27,9 @@ class UsersController < ApplicationController
   end
   
   def update
-    if @user.update(user_params)
+    if params[:commit] == "Cancel"
+      redirect_to root_path
+    elsif @user.update(user_params)
       flash[:notice] = "Your profile has been updated."
       redirect_to user_path
     else
