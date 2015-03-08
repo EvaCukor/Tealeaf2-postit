@@ -1,0 +1,22 @@
+
+[1mFrom:[0m /home/action/workspace/postit/app/controllers/comments_controller.rb @ line 18 CommentsController#vote:
+
+    [1;34m17[0m: [1;31mdef[0m [1;34mvote[0m
+ => [1;34m18[0m:   binding.pry
+    [1;34m19[0m:   @comment = [1;34m[4mComment[0m.find(params[[1;32m:id[0m])
+    [1;34m20[0m:   @vote = [1;34m[4mVote[0m.create([35mvoteable[0m: @comment, [35muser[0m: current_user, [35mvote[0m: params[[1;32m:vote[0m])
+    [1;34m21[0m: 
+    [1;34m22[0m:   respond_to [1;31mdo[0m |format|
+    [1;34m23[0m:     format.html [1;31mdo[0m
+    [1;34m24[0m:       [1;31mif[0m @vote.valid?
+    [1;34m25[0m:         flash[[1;32m:notice[0m] = [32m[1;32m"[0m[32mYour vote was counted.[1;32m"[0m[32m[0m
+    [1;34m26[0m:       [1;31melse[0m
+    [1;34m27[0m:         flash[[1;32m:error[0m] = [32m[1;32m"[0m[32mYou can only vote on a comment once.[1;32m"[0m[32m[0m
+    [1;34m28[0m:       [1;31mend[0m
+    [1;34m29[0m:       redirect_to [1;32m:back[0m
+    [1;34m30[0m:     [1;31mend[0m
+    [1;34m31[0m:     format.js
+    [1;34m32[0m:   [1;31mend[0m
+    [1;34m33[0m:       
+    [1;34m34[0m: [1;31mend[0m
+

@@ -13,6 +13,8 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'voteable_eva', '= 0.0.0', path: '/home/action/workspace/voteable-gem'
+gem 'sluggable_eva', '= 0.0.0', path: '/home/action/workspace/sluggable-gem'
 
 group :doc do
   gem 'sdoc', require: false

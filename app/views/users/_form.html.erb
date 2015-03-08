@@ -9,6 +9,10 @@
       <%= f.label :password %>
       <%= f.password_field :password %>
     </div>
+    <div class="control-group">
+      <%= f.label :time_zone %>
+      <%= f.time_zone_select :time_zone, nil, default: Time.zone.name %>
+    </div>
     <%= f.submit (@user.new_record? ? "Register" : "Update profile"), class: "btn btn-success" %>
     <%= f.submit("Cancel", class: "btn btn-warning")%>
   <% end %>

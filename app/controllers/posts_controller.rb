@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :vote]
   before_action :require_user, except: [:show, :index]
+  before_action :require_creator, only: [:edit, :update]
   
   def index
     @posts = Post.all.sort_by{|x| x.total_votes}.reverse
@@ -29,10 +30,6 @@ class PostsController < ApplicationController
   end
   
   def edit
-    if current_user != @post.user
-      flash[:error] = "You can edit only your own posts."
-      redirect_to root_path
-    end
   end
   
   def update
@@ -47,15 +44,20 @@ class PostsController < ApplicationController
   end
   
   def vote
-    vote = Vote.create(voteable: @post, user: current_user, vote: params[:vote])
+    @vote = Vote.create(voteable: @post, user: current_user, vote: params[:vote])
     
-    if vote.valid?
-      flash[:notice] = "Your vote was counted."
-    else
-      flash[:error] = "You can only vote on a post once."
-    end
-        
-    redirect_to :back
+    respond_to do |format|
+      format.html do
+        if @vote.valid?
+          flash[:notice] = "Your vote was counted."
+        else
+          flash[:error] = "You can only vote on a post once."
+        end
+        redirect_to :back
+      end
+      format.js
+    end        
+    
   end
   
   private
@@ -65,6 +67,10 @@ class PostsController < ApplicationController
   end
   
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(slug: params[:id])
+  end
+  
+  def require_creator
+    access_denied unless logged_in? and (current_user == @post.user || current_user.admin?)
   end
 end
